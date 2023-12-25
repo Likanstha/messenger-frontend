@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userRegister } from '../store/actions/authAction';
 
 const Register = () => {
   const [state, setstate] = useState({
@@ -11,6 +13,7 @@ const Register = () => {
   });
 
   const [loadImage, setLoadImage] = useState('');
+  const dispatch = useDispatch();
 
   const inputHendle = (e) => {
     setstate({
@@ -36,7 +39,17 @@ const Register = () => {
 
   const register = (e) => {
     e.preventDefault();
-    console.log(state);
+
+    const { userName, email, password, confirmPassword, image } = state;
+    const formData = new FormData();
+
+    formData.append('userName', userName);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('confirmPassword', confirmPassword);
+    formData.append('image', image);
+
+    dispatch(userRegister(formData));
   };
 
   return (
