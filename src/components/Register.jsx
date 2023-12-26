@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from '../store/actions/authAction';
 import { toast } from 'react-toastify';
+import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR } from '../store/types/authType';
 
 const Register = () => {
   const [state, setstate] = useState({
@@ -25,9 +26,11 @@ const Register = () => {
     const showToast = () => {
       if (successMessage) {
         toast.success(successMessage);
+        dispatch({ type: SUCCESS_MESSAGE_CLEAR });
       }
       if (error) {
         error.map((err) => toast.error(err));
+        dispatch({ type: ERROR_CLEAR });
       }
     };
 
