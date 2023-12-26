@@ -28,7 +28,6 @@ const Login = () => {
 
   const login = (e) => {
     e.preventDefault();
-    console.log(state);
     dispatch(userLogin(state));
   };
 
