@@ -1,7 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
-export const rootReducer = combineReducers({});
+import { authReducer } from './reducers/authReducer';
+
+export const rootReducer = combineReducers({
+  auth: authReducer,
+});
 
 export function getMiddleware(env) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

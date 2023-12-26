@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { REGISTER_FAIL, REGISTER_SUCCESS } from '../types/authType';
+import deCodeToken from 'jwt-decode';
 
 export const userRegister = (data) => {
   return async (dispatch) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/josn',
       },
     };
     try {
@@ -14,8 +16,24 @@ export const userRegister = (data) => {
         config
       );
       console.log(response.data);
+
+      localStorage.setItem('authToken', response.data.token);
+
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: {
+          successMessage: response.data.successMessage,
+          token: response.data.token,
+        },
+      });
     } catch (error) {
       console.log(error.response.data);
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: {
+          error: error.response.data.error.errorMessage,
+        },
+      });
     }
   };
 };
