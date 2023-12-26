@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCaretSquareDown, FaEdit, FaSistrix } from 'react-icons/fa';
 
-const FriendInfo = () => {
+const FriendInfo = ({ currentfriend }) => {
   return (
     <div className="friend-info">
       <input
@@ -18,7 +18,7 @@ const FriendInfo = () => {
         <div className="active-user">Active</div>
 
         <div className="name">
-          <h4>Kazi Ariyan </h4>
+          <h4>{currentfriend.userName} </h4>
         </div>
       </div>
 
