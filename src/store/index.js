@@ -2,9 +2,11 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
 import { authReducer } from './reducers/authReducer';
+import { messengerReducer } from './reducers/messagerReducer';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
+  messenger: messengerReducer,
 });
 
 export function getMiddleware(env) {
