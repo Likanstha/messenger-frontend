@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from '../store/actions/authAction';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [state, setstate] = useState({
@@ -12,13 +13,36 @@ const Register = () => {
     image: '',
   });
 
+  const navigate = useNavigate();
   const [loadImage, setLoadImage] = useState('');
   const dispatch = useDispatch();
 
   const { loading, authenticate, error, successMessage, myInfo } = useSelector(
     (state) => state.auth
   );
-  console.log(myInfo);
+
+  useEffect(() => {
+    const showToast = () => {
+      if (successMessage) {
+        toast.success(successMessage);
+      }
+      if (error) {
+        error.map((err) => toast.error(err));
+      }
+    };
+
+    showToast(); // Show notifications immediately
+
+    if (authenticate) {
+      // Wait for 5 seconds before navigating
+      const timeoutId = setTimeout(() => {
+        navigate('/');
+      }, 5000);
+
+      // Cleanup the timeout to avoid memory leaks
+      return () => clearTimeout(timeoutId);
+    }
+  }, [successMessage, error, authenticate, navigate]);
 
   const inputHendle = (e) => {
     setstate({
